@@ -26,7 +26,7 @@ Multi-monitor is supported.
 Desktop support
 ---------------
 
-This utility was written with the [bspwm](https://github.com/baskerville/bspwm) window manager in mind, as an alternative to similar commands like `bspc node --focus east` but having more intuitive multi monitor support (see [bspwm issue #380](https://github.com/baskerville/bspwm/issues/380).
+This utility was written with the [bspwm](https://github.com/baskerville/bspwm) window manager in mind, as an alternative to similar commands like `bspc node --focus east` but having more intuitive multi monitor support (see [bspwm issue #380](https://github.com/baskerville/bspwm/issues/380)).
 
 There are currently two different binary builds of `right-window`:
 
@@ -130,7 +130,7 @@ Currently I do most of my work in [bspwm](https://github.com/baskerville/bspwm),
 
 There is (hopefully) nothing Linux-specific in this code, so it should be possible to add MS Windows as another window manager.
 
-For anyone potentially pursuing this endeavour &mdash including myself of the future, here is a list of relevant WINAPI functions:
+For anyone potentially pursuing this endeavour &mdash; including myself of the future, here is a list of relevant WINAPI functions:
 
  * [GetTopWindow](https://msdn.microsoft.com/en-us/library/windows/desktop/ms633514%28v=vs.85%29.aspx)
  * [GetNextWindow](https://msdn.microsoft.com/en-us/library/windows/desktop/ms633509%28v=vs.85%29.aspx)
