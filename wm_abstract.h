@@ -110,6 +110,8 @@ namespace rw {
         Window *focused_window;
         vector<Window *> other_windows; // most recent window last
 
+        WMState() : focused_window(nullptr) {}
+
         virtual ~WMState() {
             if (focused_window) {
                 delete focused_window;
