@@ -8,6 +8,8 @@ This is a small utility to move the focus between windows in a desktop environme
 will focus the window next to the right. Available directions are `left`, `right`, `up` and `down`. 
 
 The `-f` parameter tells the `right-window` command to focus the found window . Alternatively, `-s` *switches* the current window with the found window, swapping their position and size.
+
+You can also use `-g` to print the system identifier of the matched window. This is useful if you want to use `right-window` as a starting point for creating other utilities.
  
 The command is intended to be bound as a series of hotkeys, e.g:
  
