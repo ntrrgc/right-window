@@ -69,7 +69,7 @@ For simplicity, the following instruction assume you want to find the next windo
 
  1. Begin with a list of all the currently visible windows.
 
- 2. Discard any window that definitely is to the left. This is defined as any window whose rightmost border is to the left of the left border of the focused window.
+ 2. Discard any window that is definitely to the left. This is defined as any window whose rightmost border is to the left of the left border of the focused window.
 
         +------+ +------+ +------+
         |      ‖ |      | |      ‖  
