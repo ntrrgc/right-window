@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(right_window_cpp)
 
-# There should be a better way to set executable destination path in CLion.
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "/home/ntrrgc/Dropbox/right-window-cpp/build")
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -pedantic -Wfatal-errors -Werror -Wno-error=unused-variable -Wno-error=unused-but-set-variable")
 
 include_directories("vendor")
