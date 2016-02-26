@@ -86,7 +86,8 @@ namespace rw {
         ret = XGetWindowProperty(display, root_window, _NET_CLIENT_LIST_STACKING,
                                  0, maxSizeWindowList, false,
                                  AnyPropertyType, &propType, &propFormat,
-                                 &window_list_length, &bytes_after_return, &window_list_raw);
+                                 &window_list_length, &bytes_after_return,
+                                 &window_list_raw);
         assert(ret == Success);
 
         const ::Window* window_list = reinterpret_cast<::Window *>(window_list_raw);
@@ -147,7 +148,8 @@ namespace rw {
         event.xclient.data.l[4] = 0;
 
         if (!XSendEvent(display, root_window, False, mask, &event)) {
-            cerr << "Could not send _NET_ACTIVE_WINDOW event to focus the window." << endl;
+            cerr << "Could not send _NET_ACTIVE_WINDOW event to focus the window."
+                 << endl;
             exit(2);
         }
     }
@@ -166,11 +168,13 @@ namespace rw {
         ::Window window_to_measure;
 
         if (parent_window && parent_window != root_window) {
-            // Take into account the window border, which hopefully is the parent window
+            // Take into account the window border, which hopefully is the
+            // parent window
             window_to_measure = parent_window;
             cout << "has parent\n";
         } else {
-            // This window has no border. Take the absolute coordinates of the window itself.
+            // This window has no border. Take the absolute coordinates of the
+            // window itself.
             window_to_measure = x11_window;
         }
 
@@ -181,7 +185,8 @@ namespace rw {
         unsigned int depth;
         // Get width, height and x-y coordinates local to the parent.
         int ret = XGetGeometry(display, window_to_measure, &root_window_unused,
-                               &x_in_parent, &y_in_parent, &width, &height, &border_width, &depth);
+                               &x_in_parent, &y_in_parent, &width, &height,
+                               &border_width, &depth);
         assert(ret == true);
 
         // Get coordinates relative to the root windows.
@@ -203,13 +208,15 @@ namespace rw {
 
     void X11WM::check_virtual_desktops() {
         bool exists;
-        current_desktop = read_uint32_property(root_window, _NET_CURRENT_DESKTOP, &exists);
+        current_desktop = read_uint32_property(root_window,
+                                               _NET_CURRENT_DESKTOP, &exists);
         there_are_virtual_desktops = exists;
     }
 
     bool X11WM::is_in_current_desktop(::Window window) {
         if (!there_are_virtual_desktops) {
-            // If there are no multiple desktop, the window has to be on the only one that exists.
+            // If there are no multiple desktop, the window has to be on the
+            // only one that exists.
             return true;
         } else {
             bool exists;
@@ -220,17 +227,22 @@ namespace rw {
 
     bool X11WM::is_focused(::Window window) {
         bool exists;
-        ::Window activeWindow = read_uint32_property(root_window, _NET_ACTIVE_WINDOW, &exists);
+        ::Window activeWindow = read_uint32_property(root_window,
+                                                     _NET_ACTIVE_WINDOW, &exists);
 
         if (!exists) {
-            cerr << "This window manager does not support _NET_ACTIVE_WINDOW, can't get focused window." << endl;
+            cerr << "This window manager does not support _NET_ACTIVE_WINDOW, "
+                            "can't get focused window." << endl;
             exit(2);
         }
 
         return activeWindow == window;
     }
 
-    uint32_t X11WM::read_uint32_property(unsigned long x11_window, ::Atom property, bool *exists) {
+    uint32_t X11WM::read_uint32_property(unsigned long x11_window,
+                                         ::Atom property,
+                                         bool *exists)
+    {
         Atom actual_type_return;
         int actual_format_return;
         unsigned long nitems_return;
@@ -240,8 +252,10 @@ namespace rw {
 
         ret = XGetWindowProperty(display, x11_window, property,
                                  0, 1, false,
-                                 AnyPropertyType, &actual_type_return, &actual_format_return,
-                                 &nitems_return, &bytes_after_return, &prop_return);
+                                 AnyPropertyType,
+                                 &actual_type_return, &actual_format_return,
+                                 &nitems_return, &bytes_after_return,
+                                 &prop_return);
         assert(ret == Success);
 
         if (actual_type_return == None) {
@@ -267,8 +281,10 @@ namespace rw {
 
         ret = XGetWindowProperty(display, window, _NET_WM_STATE,
                                  0, 128, false,
-                                 AnyPropertyType, &actual_type_return, &actual_format_return,
-                                 &nitems_return, &bytes_after_return, &prop_return);
+                                 AnyPropertyType,
+                                 &actual_type_return, &actual_format_return,
+                                 &nitems_return, &bytes_after_return,
+                                 &prop_return);
         assert(ret == Success);
 
         if (actual_type_return == None) {
@@ -322,7 +338,9 @@ namespace rw {
         }
     }
 
-    void X11WM::change_window_state(const Window *window, ::Atom operation, ::Atom state) {
+    void X11WM::change_window_state(const Window *window, ::Atom operation,
+                                    ::Atom state)
+    {
         XEvent event;
         long mask = SubstructureRedirectMask | SubstructureNotifyMask;
 
@@ -354,8 +372,10 @@ namespace rw {
 
         ret = XGetWindowProperty(display, window, _NET_WM_WINDOW_TYPE,
                                  0, 128, false,
-                                 AnyPropertyType, &actual_type_return, &actual_format_return,
-                                 &nitems_return, &bytes_after_return, &prop_return);
+                                 AnyPropertyType, &actual_type_return,
+                                 &actual_format_return,
+                                 &nitems_return, &bytes_after_return,
+                                 &prop_return);
         assert(ret == Success);
 
         if (actual_type_return == None) {

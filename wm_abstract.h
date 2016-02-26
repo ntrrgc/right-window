@@ -42,13 +42,15 @@ namespace rw {
 
     class Window {
     public:
-        int window_id; // An id used to manipulate this window (e.g. to request the WM to focus it)
+        int window_id; // An id used to manipulate this window (e.g. to request
+                       // the WM to focus it)
         int top; // Y coordinate of the top border of the window.
         int bottom; // X coordinate of the right border of the window.
         int left; // Y coordinate of the bottom border of the window.
         int right; // X coordinate of the left border of the window.
 
-        // The top left corner of the screen is at x = 0, y = 0 in this convention.
+        // The top left corner of the screen is at x = 0, y = 0 in this
+        // convention.
 
         void from_xywh(int x, int y, unsigned int w, unsigned int h) {
             left = x;

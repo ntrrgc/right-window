@@ -31,7 +31,8 @@ namespace rw {
         int current_desktop;
         void check_virtual_desktops();
 
-        uint32_t read_uint32_property(::Window x11_window, ::Atom property, bool *exists);
+        uint32_t read_uint32_property(::Window x11_window, ::Atom property,
+                                      bool *exists);
 
         ::Atom _NET_CLIENT_LIST_STACKING;
         ::Atom _NET_WM_DESKTOP;
@@ -65,8 +66,10 @@ namespace rw {
         bool is_desktop_feature(::Window window);
         Window * extract_window_data(::Window x11_window);
 
-        void move_resize_window(const Window * window, int x, int y, unsigned int w, unsigned int h);
-        void change_window_state(const Window * window, ::Atom operation, ::Atom state);
+        void move_resize_window(const Window * window, int x, int y,
+                                unsigned int w, unsigned int h);
+        void change_window_state(const Window * window,
+                                 ::Atom operation, ::Atom state);
     };
 
 }

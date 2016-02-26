@@ -40,19 +40,26 @@ int main(int argc, char ** const argv) {
     bool getId, focus, swap, debug;
 
     try {
-        CmdLine cmd("Switches focus between windows based on cardinal directions.", ' ', "1.0");
+        CmdLine cmd("Switches focus between windows based on cardinal directions.",
+                    ' ', "1.0");
 
-        SwitchArg getIdSwitch("g", "get-id", "Print the identifier of the found window.");
-        SwitchArg swapSwitch("s", "swap", "Swap the current window with the found window.");
-        SwitchArg focusSwitch("f", "focus", "Focus the found window.");
-        SwitchArg debugSwitch("d", "debug", "Dumps the information extracted from the WM.", cmd);
+        SwitchArg getIdSwitch("g", "get-id",
+                              "Print the identifier of the found window.");
+        SwitchArg swapSwitch("s", "swap",
+                             "Swap the current window with the found window.");
+        SwitchArg focusSwitch("f", "focus",
+                              "Focus the found window.");
+        SwitchArg debugSwitch("d", "debug",
+                              "Dumps the information extracted from the WM.",
+                              cmd);
 
         vector<Arg*> xorGroup = {&getIdSwitch, &focusSwitch, &swapSwitch};
         cmd.xorAdd(xorGroup);
 
         vector<string> allowedDirectionNames = map_keys<string>(directions);
         auto ctr = ValuesConstraint<string>(allowedDirectionNames);
-        UnlabeledValueArg<string> directionArg("direction", "The direction a window will be searched in.",
+        UnlabeledValueArg<string> directionArg("direction",
+            "The direction a window will be searched in.",
             true, "", &ctr, "DIR");
 
         cmd.add(directionArg);

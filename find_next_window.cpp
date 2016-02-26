@@ -92,8 +92,10 @@ namespace rw {
             auto other_range = direction->perpendicular_range(other);
 
             int overlap = overlap_length(focused_range, other_range);
-            // Note: small overlap differences as treated as if there was no difference. This is because in practice
-            // these small differences are side effects of splitting the screen when the height or width is not even.
+            // Note: small overlap differences as treated as if there was no
+            // difference. This is because in practice these small differences
+            // are side effects of splitting the screen when the height or width
+            // is not even.
             const int small_difference = 50;
 
             if (!best_overlap_set || (overlap - best_overlap > small_difference)) {
@@ -156,7 +158,8 @@ namespace rw {
             return nullptr; // Nothing to do here!
         }
 
-        // For the sake of familiarity these comments will assume direction == right, but the code is generic instead to
+        // For the sake of familiarity these comments will assume direction ==
+        // right, but the code is generic instead to
         // handle other directions.
 
         // Generalizations (assuming direction == right):
@@ -181,7 +184,8 @@ namespace rw {
         }
 
         // Step 2.
-        // Discard any window that definitely is to the left. This is defined as any window whose rightmost border is to
+        // Discard any window that definitely is to the left. This is defined as
+        // any window whose rightmost border is to
         // the left of the left border of the focused window.
 
         //  +------+ +------+ +------+
@@ -202,7 +206,8 @@ namespace rw {
         }
 
         // Step 3.
-        // Check if there are any remaining windows that share vertical range with the focused one. In that case,
+        // Check if there are any remaining windows that share vertical range
+        // with the focused one. In that case,
         // discard the others. Otherwise, skip this step.
 
         //  +------+          +------+
@@ -232,9 +237,10 @@ namespace rw {
         }
 
         // Step 4.
-        // Of the remaining windows, pick the one whose left border is nearest to the right border of the focused
-        // window. In case of a tie where two or more windows have the same X position for their left border, pick all
-        // of them.
+        // Of the remaining windows, pick the one whose left border is nearest
+        // to the right border of the focused window. In case of a tie where two
+        // or more windows have the same X position for their left border, pick
+        // all of them.
 
         //  +-----+ +-----+ +-----+
         //  |     | ‖  B  | |  C  |
@@ -250,9 +256,10 @@ namespace rw {
         }
 
         // Step 5.
-        // If at this step we still have several windows, pick the most recently used (which is also the topmost one
-        // in the Z-stack).
-        // Note that as the other_windows vector is sorted by Z-index we just pick the last element.
+        // If at this step we still have several windows, pick the most recently
+        // used (which is also the topmost one in the Z-stack).
+        // Note that as the other_windows vector is sorted by Z-index we just
+        // pick the last element.
 
         if (other_windows.size() > 0) {
             return other_windows[other_windows.size() - 1];

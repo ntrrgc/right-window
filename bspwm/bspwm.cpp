@@ -44,7 +44,8 @@ namespace rw {
 
             for (auto &monitor : wm_state_doc["monitors"]) {
                 if (monitor["wired"].GetBool()) {
-                    auto focused_desktop_name = string(monitor["focusedDesktopName"].GetString());
+                    auto focused_desktop_name = string(monitor["focusedDesktopName"]
+                                                               .GetString());
 
                     for (auto &desktop : monitor["desktops"]) {
                         if (desktop["name"].GetString() == focused_desktop_name) {
@@ -68,8 +69,11 @@ namespace rw {
 
 
     private:
-        void process_node(const rapidjson::Document &wm_state_doc, const rapidjson::Value &monitor,
-                          const rapidjson::Value &desktop, const rapidjson::Value &node) {
+        void process_node(const rapidjson::Document &wm_state_doc,
+                          const rapidjson::Value &monitor,
+                          const rapidjson::Value &desktop,
+                          const rapidjson::Value &node)
+        {
             using namespace rapidjson;
 
             if (node.IsNull()) {
@@ -82,14 +86,17 @@ namespace rw {
 
                 bool focused = (
                         (desktop["focusedNodeId"].GetInt() == node["id"].GetInt()) &&
-                        (wm_state_doc["focusedMonitorName"].GetString() == string(monitor["name"].GetString()))
+                        (wm_state_doc["focusedMonitorName"].GetString() ==
+                                string(monitor["name"].GetString()))
                 );
 
                 Window *window = new Window();
                 window->window_id = node["id"].GetInt();
                 window->top = rectangle["y"].GetInt();
-                window->right = rectangle["x"].GetInt() + rectangle["width"].GetInt();
-                window->bottom = rectangle["y"].GetInt() + rectangle["height"].GetInt();
+                window->right = rectangle["x"].GetInt() +
+                                rectangle["width"].GetInt();
+                window->bottom = rectangle["y"].GetInt() +
+                                 rectangle["height"].GetInt();
                 window->left = rectangle["x"].GetInt();
 
                 windows_by_id[window->window_id] = window;
