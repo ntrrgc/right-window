@@ -44,11 +44,10 @@ namespace rw {
 
             for (auto &monitor : wm_state_doc["monitors"]) {
                 if (monitor["wired"].GetBool()) {
-                    auto focused_desktop_name = string(monitor["focusedDesktopName"]
-                                                               .GetString());
+                    auto focused_desktop_id = monitor["focusedDesktopId"].GetInt();
 
                     for (auto &desktop : monitor["desktops"]) {
-                        if (desktop["name"].GetString() == focused_desktop_name) {
+                        if (desktop["id"].GetInt() == focused_desktop_id) {
                             process_node(wm_state_doc, monitor, desktop, desktop["root"]);
                         }
                     }
@@ -86,8 +85,8 @@ namespace rw {
 
                 bool focused = (
                         (desktop["focusedNodeId"].GetInt() == node["id"].GetInt()) &&
-                        (wm_state_doc["focusedMonitorName"].GetString() ==
-                                string(monitor["name"].GetString()))
+                        (wm_state_doc["focusedMonitorId"].GetInt() ==
+                                monitor["id"].GetInt())
                 );
 
                 Window *window = new Window();
