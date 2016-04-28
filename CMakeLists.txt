@@ -18,15 +18,26 @@ set(SOURCE_FILES
         find_next_window.h
         find_next_window.cpp)
 
-add_executable(right-window-bspwm ${SOURCE_FILES}
-        subprocess.cpp
-        bspwm/bspwm.h
-        bspwm/bspwm.cpp window_clipping.h)
-set_target_properties(right-window-bspwm PROPERTIES COMPILE_FLAGS "-DUSE_BSPWM")
+if (NOT DEFINED BSPWM_BUILD)
+    set(BSPWM_BUILD ON)
+endif()
+if (NOT DEFINED X11_BUILD)
+    set(X11_BUILD ON)
+endif()
 
-add_executable(right-window-x11 ${SOURCE_FILES}
-        x11wm/x11wm.h
-        x11wm/x11wm.cpp)
-set_target_properties(right-window-x11 PROPERTIES COMPILE_FLAGS "-DUSE_X11WM")
-include_directories(right-window-x11 PUBLIC ${X11_INCLUDE_DIR})
-target_link_libraries(right-window-x11 ${X11_LIBRARIES})
+if (BSPWM_BUILD)
+    add_executable(right-window-bspwm ${SOURCE_FILES}
+            subprocess.cpp
+            bspwm/bspwm.h
+            bspwm/bspwm.cpp window_clipping.h)
+    set_target_properties(right-window-bspwm PROPERTIES COMPILE_FLAGS "-DUSE_BSPWM")
+endif()
+
+if (X11_BUILD)
+    add_executable(right-window-x11 ${SOURCE_FILES}
+            x11wm/x11wm.h
+            x11wm/x11wm.cpp)
+    set_target_properties(right-window-x11 PROPERTIES COMPILE_FLAGS "-DUSE_X11WM")
+    include_directories(right-window-x11 PUBLIC ${X11_INCLUDE_DIR})
+    target_link_libraries(right-window-x11 ${X11_LIBRARIES})
+endif()
