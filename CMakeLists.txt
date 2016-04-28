@@ -31,6 +31,8 @@ if (BSPWM_BUILD)
             bspwm/bspwm.h
             bspwm/bspwm.cpp window_clipping.h)
     set_target_properties(right-window-bspwm PROPERTIES COMPILE_FLAGS "-DUSE_BSPWM")
+    install(TARGETS right-window-bspwm
+            RUNTIME DESTINATION bin)
 endif()
 
 if (X11_BUILD)
@@ -40,4 +42,6 @@ if (X11_BUILD)
     set_target_properties(right-window-x11 PROPERTIES COMPILE_FLAGS "-DUSE_X11WM")
     include_directories(right-window-x11 PUBLIC ${X11_INCLUDE_DIR})
     target_link_libraries(right-window-x11 ${X11_LIBRARIES})
+    install(TARGETS right-window-x11
+            RUNTIME DESTINATION bin)
 endif()
