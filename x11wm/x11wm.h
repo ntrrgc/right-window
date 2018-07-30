@@ -7,7 +7,6 @@
 
 #include "../wm_abstract.h"
 #include <X11/Xlib.h>
-#include <boost/concept_check.hpp>
 
 namespace rw {
 
