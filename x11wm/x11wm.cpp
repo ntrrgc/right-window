@@ -112,7 +112,7 @@ namespace rw {
 
                 focused = is_focused(window_id);
                 rw_window = extract_window_data(window_id);
-            } catch (NoWindow) {
+            } catch (NoWindow&) {
                 // Window closed while probing, skip this one.
                 continue;
             }

@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <iostream>
 #include <tuple>
+#include <functional>
 
 using namespace std;
 
